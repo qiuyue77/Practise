@@ -1,0 +1,20 @@
+version: "1"
+services:
+
+# ========== dev or test ================
+
+  web:
+    image: qiuyue77/python3.7:latest
+    build: .
+    volumes:
+      - .:/code
+    ports:
+      - "9876:9876"
+    network_mode: bridge
+    environment:
+      - PYTHONPATH=/code
+    external_links:
+      - product_mysql:mysql
+      - product_redis:redis
+    extra_hosts:
+    container_name: python-env
