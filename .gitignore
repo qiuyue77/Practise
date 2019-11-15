@@ -2,3 +2,10 @@
 .idea
 __pycache__/
 *.pyc
+.vscode/
+.vscode
+mysite_20180730000348_536/
+pyvenv/
+bundle/
+python3_7/
+

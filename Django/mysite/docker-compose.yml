@@ -1,0 +1,19 @@
+version: "3"
+services:
+
+# ========== dev or test ================
+
+  web:
+    build: .
+    command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    network_mode: bridge
+    environment:
+      - PYTHONPATH=/code
+    external_links:
+      - product_mysql:mysql
+      - product_redis:redis
+    container_name: django_web

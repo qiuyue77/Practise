@@ -1,0 +1,42 @@
+" Define bundles via Github repos "
+
+Bundle 'scrooloose/nerdtree'
+
+Bundle 'Valloric/YouCompleteMe'
+
+Bundle 'kien/ctrlp.vim'
+
+Bundle 'tomasr/molokai'
+
+Bundle 'klen/python-mode'
+
+Bundle 'Lokaltog/vim-powerline'
+
+Bundle 'scrooloose/syntastic'
+
+Bundle 'majutsushi/tagbar'
+
+Bundle 'christoomey/vim-run-interactive'
+
+Bundle 'danro/rename.vim'
+
+Bundle 'pbrisbin/vim-mkdir'
+
+Bundle 'tpope/vim-surround'
+
+Bundle 'vim-scripts/tComment'
+
+Bundle 'godlygeek/tabular'
+
+Bundle 'tpope/vim-fugitive'
+
+Bundle 'Shougo/neocomplete.vim'
+
+Bundle 'croaky/vim-colors-github'
+
+Bundle 'connorholyday/vim-snazzy'
+
+Bundle 'vim-airline/vim-airline'
+
+https://downloads.sourceforge.net/project/xdman/xdm-2018-x64.tar.xz?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fxdman%2F&ts=1560184508&use_mirror=nchc
+

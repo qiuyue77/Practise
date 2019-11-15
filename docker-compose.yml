@@ -1,11 +1,13 @@
-version: "1"
+version: "3"
 services:
 
-# ========== dev or test ================
-
-  web:
-    image: qiuyue77/python3.7:latest
-    build: .
+# python3.7
+  python37:
+    image: qiuyue77/python3.7
+    build: 
+      context: ./python3_7
+      dockerfile: Dockerfile
+    command: /bin/sh
     volumes:
       - .:/code
     ports:
@@ -16,5 +18,5 @@ services:
     external_links:
       - product_mysql:mysql
       - product_redis:redis
-    extra_hosts:
+    # extra_hosts:
     container_name: python-env

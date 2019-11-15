@@ -1,0 +1,16 @@
+version: "3"
+services:
+
+# ========== dev or test ================
+
+  web:
+    build: .
+    command: /bin/bash
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    network_mode: bridge
+    environment:
+      - PYTHONPATH=/code
+    container_name: unittest_web
