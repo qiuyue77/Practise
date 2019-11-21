@@ -266,6 +266,12 @@ sudo apt install python3-pip
 
 > [查看相关网址](https://blog.csdn.net/lu_embedded/article/details/76732965)
 
+#### 安装 chromium
+
+> ```bash
+> sudo apt install chromium-browser
+> ```
+
 #### 安装theFuck
 
 > ```bash
