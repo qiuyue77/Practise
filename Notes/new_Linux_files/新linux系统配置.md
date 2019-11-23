@@ -25,6 +25,9 @@ deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted
 ```
 
 ### 3. 安装pip3，修改pip3源
+```bash
+sudo apt install python3 python3-dev
+```
 
 ```bash
 mkdir ~/.pip
@@ -74,6 +77,10 @@ sudo apt install python3-pip
 >    ```bash
 >    sudo apt install git
 >    ```
+>    如果出现 git status 不能正常显示中文，输入
+>    ````bash
+>    git config --global core.quotepath false 
+>    ````
 >
 > 5. **安装oh-my-zsh**
 >
@@ -128,6 +135,11 @@ sudo apt install python3-pip
 >    sudo vim ~/.zshrc
 >    # 找到ZSH_THEME=，修改=后面引号内的内容
 >    ZSH_THEME="ys"
+>    ```
+
+#### 安装常用shell app
+>    ```bash
+>    sudo apt install ranger neofetch
 >    ```
 
 #### 安装pycharm

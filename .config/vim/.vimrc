@@ -1,5 +1,5 @@
-if filereadable(expand("~/.vimrc.bundles"))
-  source ~/.vimrc.bundles
+if filereadable(expand("~/.vim/.vimrc.bundles"))
+  source ~/.vim/.vimrc.bundles
 endif
 let mapleader=" "
 set number
@@ -24,34 +24,32 @@ noremap = nzz
 noremap - Nzz
 noremap <LEADER><CR> :nohlsearch<CR>
 
-noremap n h
 noremap u k
-noremap e j
-noremap i l
+noremap i u
+noremap l i
+noremap k l
 noremap U 5k
-noremap E 5j
-noremap N 7h
-noremap I 7l 
-noremap k i
-noremap K I
-noremap l u
+noremap J 5j
+noremap H 7h
+noremap K 7l 
+noremap I R
 
-map si :set splitright<CR>:vsplit<CR>
-map sn :set nosplitright<CR>:vsplit<CR>
+map sk :set splitright<CR>:vsplit<CR>
+map sh :set nosplitright<CR>:vsplit<CR>
 map su :set nosplitbelow<CR>:split<CR>
-map se :set splitbelow<CR>:split<CR>
+map sj :set splitbelow<CR>:split<CR>
 
-map <LEADER>i <C-w>l
+map <LEADER>k <C-w>l
 map <LEADER>u <C-w>k
-map <LEADER>n <C-w>h
-map <LEADER>e <C-w>j
+map <LEADER>h <C-w>h
+map <LEADER>j <C-w>j
  
 color snazzy
 
 map s <nop>
 map S :w<CR>
 map Q :q<CR>
-map R :source $MYVIMRC<CR>
+map R :source ~/.vim/.vimrc<CR>
 
 " Compile function
 map r :call CompileRunGcc()<CR>
@@ -78,7 +76,7 @@ map R :call CompileBuildrrr()<CR>
 func! CompileBuildrrr()
   exec "w"
   if &filetype == 'vim'
-    exec "source $MYVIMRC"
+    exec "source ~/.vim/.vimrc"
   elseif &filetype == 'markdown'
     exec "echo"
   endif
