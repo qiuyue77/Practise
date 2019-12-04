@@ -1,5 +1,5 @@
-if filereadable(expand("~/.vim/.vimrc.bundles"))
-  source ~/.vim/.vimrc.bundles
+if filereadable(expand("~/.vimrc.bundles"))
+  source ~/.vimrc.bundles
 endif
 let mapleader=" "
 set number
@@ -24,32 +24,37 @@ noremap = nzz
 noremap - Nzz
 noremap <LEADER><CR> :nohlsearch<CR>
 
-noremap u k
-noremap i u
-noremap l i
-noremap k l
-noremap U 5k
-noremap J 5j
-noremap H 7h
-noremap K 7l 
-noremap I R
+noremap i k
+noremap k j
+noremap j h
+noremap h i
+noremap I 5k
+noremap K 5j
+noremap J 7h
+noremap L 7l 
+noremap H I
 
-map sk :set splitright<CR>:vsplit<CR>
-map sh :set nosplitright<CR>:vsplit<CR>
-map su :set nosplitbelow<CR>:split<CR>
-map sj :set splitbelow<CR>:split<CR>
+imap fj <Esc>
 
-map <LEADER>k <C-w>l
-map <LEADER>u <C-w>k
-map <LEADER>h <C-w>h
-map <LEADER>j <C-w>j
+map si :set nosplitbelow<CR>:split<CR>
+map sk :set splitbelow<CR>:split<CR>
+map sj :set nosplitright<CR>:vsplit<CR>
+map sl :set splitright<CR>:vsplit<CR>
+
+map <LEADER>i <C-w>k
+map <LEADER>k <C-w>j
+map <LEADER>j <C-w>h
+map <LEADER>l <C-w>l
  
 color snazzy
 
 map s <nop>
 map S :w<CR>
 map Q :q<CR>
-map R :source ~/.vim/.vimrc<CR>
+" map R :source $MYVIMRC<CR>
+
+" Press space twice to jump to the next '<++>' and edit it
+map <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4i
 
 " Compile function
 map r :call CompileRunGcc()<CR>
@@ -76,7 +81,7 @@ map R :call CompileBuildrrr()<CR>
 func! CompileBuildrrr()
   exec "w"
   if &filetype == 'vim'
-    exec "source ~/.vim/.vimrc"
+    exec "source $MYVIMRC"
   elseif &filetype == 'markdown'
     exec "echo"
   endif
@@ -111,28 +116,28 @@ autocmd Filetype markdown inoremap ,l --------<Enter>
 " ===
 " === MarkdownPreview
 " ===
-let g:mkdp_auto_start = 0
-let g:mkdp_auto_close = 1
-let g:mkdp_refresh_slow = 0
-let g:mkdp_command_for_global = 0
-let g:mkdp_open_to_the_world = 0
-let g:mkdp_open_ip = ''
+" let g:mkdp_auto_start = 0
+" let g:mkdp_auto_close = 1
+" let g:mkdp_refresh_slow = 0
+" let g:mkdp_command_for_global = 0
+" let g:mkdp_open_to_the_world = 0
+" let g:mkdp_open_ip = ''
 " let g:mkdp_browser = 'chromium'
-let g:mkdp_echo_preview_url = 0
-let g:mkdp_browserfunc = ''
-let g:mkdp_preview_options = {
-    \ 'mkit': {},
-    \ 'katex': {},
-    \ 'uml': {},
-    \ 'maid': {},
-    \ 'disable_sync_scroll': 0,
-    \ 'sync_scroll_type': 'middle',
-    \ 'hide_yaml_meta': 1
-    \ }
-let g:mkdp_markdown_css = ''
-let g:mkdp_highlight_css = ''
-let g:mkdp_port = ''
-let g:mkdp_page_title = '「${name}」'
+" let g:mkdp_echo_preview_url = 0
+" let g:mkdp_browserfunc = ''
+" let g:mkdp_preview_options = {
+"     \ 'mkit': {},
+"     \ 'katex': {},
+"     \ 'uml': {},
+"     \ 'maid': {},
+"     \ 'disable_sync_scroll': 0,
+"     \ 'sync_scroll_type': 'middle',
+"     \ 'hide_yaml_meta': 1
+"     \ }
+" let g:mkdp_markdown_css = ''
+" let g:mkdp_highlight_css = ''
+" let g:mkdp_port = ''
+" let g:mkdp_page_title = '「${name}」'
 " source ~/.vim/snippits.vim
 
 " ===
