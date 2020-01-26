@@ -14,7 +14,8 @@ sudo pacman -Syy && sudo pacman -S archlinuxcn-keyring
 # 同步源并更新系统
 sudo pacman -Syyu
 ```
-#### 
+#### 安装app
+ 
 <++>#### 
 <++>#### 
 <++>#### 
