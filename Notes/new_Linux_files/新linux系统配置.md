@@ -1,7 +1,11 @@
 ### 1 安装vim
 
 ```bash
+sudo add-apt-repository ppa:jonathonf/vim
+sudo apt update
 sudo apt install vim
+# 卸载ppa
+sudo add-apt-repository --remove ppa:jonathonf/vim 
 ```
 
 ### 2 更新Ubuntu镜像源
