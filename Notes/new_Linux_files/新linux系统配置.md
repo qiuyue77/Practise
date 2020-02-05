@@ -65,7 +65,8 @@ sudo apt install python3-pip
 > 2. **将默认shell改为zsh**
 >
 >    ```bash
->    chsh -s /bin/zsh # 注意：不要使用sudo
+>    chsh -s /bin/zsh # 注意：不要使用sudo root用户
+>    chsh -s /usr/bin/zsh # 本地当前用户
 >    ```
 >
 > 3. **配置密码文件，解决chsh:PAM认证失败的问题**
@@ -100,7 +101,7 @@ sudo apt install python3-pip
 >    sudo apt install autojump
 >    cat /usr/share/doc/autojump/README.Debian  # 配置教程
 >    vim ~/.zshrc
->    # 在最后一行加入，注意点后面是一个空格
+>    # 在最后一行加入，注意点`.`后面是一个空格
 >    . /usr/share/autojump/autojump.sh
 >    source ~/.zshrc # 生效
 >    ```
@@ -141,7 +142,7 @@ sudo apt install python3-pip
 >    ZSH_THEME="ys"
 >    ```
 
-#### 安装常用shell app
+#### 安装常用 app
 >    ```bash
 >    sudo apt install ranger neofetch
 >    ```
