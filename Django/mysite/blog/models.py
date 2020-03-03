@@ -20,6 +20,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
 class Tags(models.Model):
     """
         标签 Tag 也比较简单，和 Category 一样。
@@ -30,8 +31,9 @@ class Tags(models.Model):
     class Meta:
         verbose_name = '标签'
         verbose_name_plural = verbose_name
+
     def __str__(self):
-        return  self.name
+        return self.name
 
 
 class Article(models.Model):
@@ -44,7 +46,10 @@ class Article(models.Model):
     # 我们规定一篇文章只能对应一个分类，但是一个分类下可以有多篇文章，所以我们使用的是 ForeignKey，即一对多的关联关系。
     # 而对于标签来说，一篇文章可以有多个标签，同一个标签下也可能有多篇文章，所以我们使用 ManyToManyField，表明这是多对多的关联关系。
     # 同时我们规定文章可以没有标签，因此为标签 category 指定了 blank=True。
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='分类', default='1')
+    category = models.ForeignKey(Category,
+                                 on_delete=models.CASCADE,
+                                 verbose_name='分类',
+                                 default='1')
     tags = models.ManyToManyField(Tags, blank=True)
     # 存储比较短的字符串可以使用 CharField，但对于文章的正文来说可能会是一大段文本，因此使用 TextField 来存储大段文本。
     body = models.TextField()
@@ -62,3 +67,4 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
