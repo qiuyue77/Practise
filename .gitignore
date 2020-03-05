@@ -2,6 +2,7 @@
 .idea
 __pycache__/
 *.pyc
+*.pyo
 .vscode/
 .vscode
 mysite_20180730000348_536/
