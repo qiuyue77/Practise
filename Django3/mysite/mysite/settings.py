@@ -24,18 +24,15 @@ SECRET_KEY = ')wgi8gdk(v*ewz(ws(2e+89%#&0dz&vtias+1jd$dy8rc19=$_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'blog.apps.BlogConfig',
+    'django.contrib.admin', 'django.contrib.auth',
+    'django.contrib.contenttypes', 'django.contrib.sessions',
+    'django.contrib.messages', 'django.contrib.staticfiles',
+    'blog.apps.BlogConfig', 'appTest', 'school'
 ]
 
 MIDDLEWARE = [
@@ -73,8 +70,15 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mysite',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': 'mysql',
+        'PORT': '3306',
+        'OPTIONS': {
+            'charset': 'utf8mb4'
+        },
     }
 }
 
