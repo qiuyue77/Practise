@@ -15,7 +15,7 @@ from fabric.api import local
 # PRO_ENV_NODE1 = '10.9.250.68'
 
 DOCKER = True
-name = 'mysite1'
+name = 'mysite'
 
 
 class Config(object):
