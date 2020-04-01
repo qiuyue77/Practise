@@ -1,16 +1,17 @@
-from fabric.api import (
-    local,
-    cd,
-    run,
-    execute,
-    env,
-)
+# coding: utf-8
 
-env.user = 'data'
+from fabric.api import local
+
+#from fabric.api import (
+#    cd,
+#    run,
+#    execute,
+#    env,
+#    settings,
+#)
 
 DOCKER = True
-
-WEB = 'web'
+name = 'xxxx'
 
 
 class Config(object):
@@ -30,23 +31,15 @@ def _(command):
         local(command)
 
 
-def update():
-    """
-    update submodule dependencies.
-    """
-    local('git submodule init')
-    local('git submodule update')
-
-
-def runserver(port=8000):
+def runserver(port=7000):
     """
     Run Django development server.
     """
     cmd = 'python manage.py runserver 0.0.0.0:{}'.format(port)
     if DOCKER:
         local(
-            'docker-compose run --rm -p {port}:{port} --name toutiao_web_run web {cmd}'
-            .format(port=port, cmd=cmd))
+            f'docker-compose run --rm -p {port}:{port} --name {name}_web_run web {cmd}'
+        )
 
 
 def manage(cmd):
@@ -71,7 +64,7 @@ def migrate(version=None):
     if version is None:
         cmd = 'migrate'
     else:
-        cmd = 'migrate toutiao {}'.format(version)
+        cmd = f'migrate {name} {version}'
     manage(cmd)
 
 
@@ -87,84 +80,99 @@ def bash():
     _('bash')
 
 
-def start_app(name):
+def start_app(app_name):
     """
     Create Django application.  """
-    _('python manage.py startapp {}'.format(name))
+    _(f'python manage.py startapp {app_name}')
 
 
-def clean():
+def clean(cmd=""):
     """
     Clean all .pyc files.
     """
-    local("find . -name '*.pyc' '*.pyo' -type f -print -exec rm -rf {} \;")
+    curly_braces = '{} \\'
+    local(
+        f'{cmd} find . -name "*.pyc" -type f -print -exec rm -rf {curly_braces};'
+    )
+
+
+def sclean():
+    """
+    Clean all .pyc files by root.
+    """
+    clean('sudo')
 
 
 def test():
-    """Run Django unit tests.
+    """
+    Run Django unit tests.
     """
     manage('test')
 
 
 def install():
-    """pip install new dependencies
+    """
+    pip install new dependencies
     """
     _("pip install -r requirements/base.txt")
 
 
-def create_db(db='myblog'):
+def create_db(db=name):
     '''
     create db if db not exists
     '''
-    local('docker exec -it {db_container} mysql -uroot -proot -e '
+    local('docker exec -it {db_container} mysql -uroot -p -e '
           '"CREATE DATABASE IF NOT EXISTS {db};"'.format(
               db=db, db_container=config.db_container))
 
 
-def drop_db(db='myblog'):
+def drop_db(db=name):
     '''
     drop db
     '''
-    local('docker exec -it {db_container} mysql -uroot -proot -e '
+    local('docker exec -it {db_container} mysql -uroot -p -e '
           '"DROP DATABASE {db};"'.format(db=db,
                                          db_container=config.db_container))
 
 
-def server_pull_update(branch='master'):
-    with cd('/data/deploy_app/toutiao'):
-        run('docker-compose pull web')
-        run('git stash')
-        run('git clean -fd')
-        run('git checkout %s' % branch)
-        run('git fetch origin %s' % branch)
-        run('git reset --hard origin/%s' % branch)
-        run('git pull --rebase origin %s:%s' % (branch, branch))
+# def server_pull_update(branch='master'):
+#     with cd(f'/data/deploy_app/{name}'):
+#         run('docker-compose pull web')
+#         run('git stash')
+#         run('git clean -fd')
+#         run('git checkout %s' % branch)
+#         run('git fetch origin %s' % branch)
+#         run('git reset --hard origin/%s' % branch)
+#         run('git pull --rebase origin %s:%s' % (branch, branch))
 
+# def server_db_migrate(container='prod'):
+#     with cd(f'/data/deploy_app/{name}'):
+#         run('docker-compose pull web')
+#         run('docker-compose run --rm %s python manage.py migrate --noinput' % container)
+#         run('docker-compose run --rm %s python manage.py collectstatic --noinput' % container)
 
-def server_db_migrate(container='prod'):
-    with cd('/data/deploy_app/toutiao'):
-        run('docker-compose pull web')
-        run('docker-compose run --rm %s python manage.py migrate --noinput' %
-            container)
-        run('docker-compose run --rm %s python manage.py collectstatic --noinput'
-            % container)
+# def server_service_restart(container='prod'):
+#     with cd(f'/data/deploy_app/{name}'):
+#         run('docker-compose stop %s' % container)
+#         run('docker-compose rm -f %s' % container)
+#         run('docker-compose up -d %s' % container)
 
+# def deploy_test_docker(branch='dev'):
+#     '''
+#     从gitlab 发布测试环境
+#     '''
+#     execute(server_pull_update, branch, hosts=[TEST_ENV])
+#     execute(server_db_migrate, 'web', hosts=[TEST_ENV])
+#     execute(server_service_restart, 'web', hosts=[TEST_ENV])
+#     execute(server_service_restart, 'test_celery', hosts=[TEST_ENV])
+#     execute(server_service_restart, 'test_api', hosts=[TEST_ENV])
 
-def server_service_restart(container='prod'):
-    with cd('/data/deploy_app/toutiao'):
-        run('docker-compose stop %s' % container)
-        run('docker-compose rm -f %s' % container)
-        run('docker-compose up -d %s' % container)
-
-
-def deploy_test_from_local():
-    """
-    从本地发布测试
-    :return:
-    """
-    clean()
-    execute(server_db_migrate, 'web')
-    execute(server_service_restart, 'web')
-    execute(server_service_restart, 'test_celery')
-    execute(server_service_restart, 'test_api')
-
+# def deploy_pro_docker(branch='master'):
+#     '''
+#     从gitlab 发布生产环境
+#     '''
+#     execute(server_pull_update, branch, hosts=[PRO_ENV_NODE1])
+#     execute(server_db_migrate, 'prod', hosts=[PRO_ENV_NODE1])
+#     execute(server_service_restart, 'prod', hosts=[PRO_ENV_NODE1])
+#     execute(server_service_restart, 'pro_celery', hosts=[PRO_ENV_NODE1])
+#     execute(server_service_restart, 'pro_xiaocx_api', hosts=[PRO_ENV_NODE1])
